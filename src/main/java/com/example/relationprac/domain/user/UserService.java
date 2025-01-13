@@ -134,20 +134,20 @@ public class UserService {
     }
 
     // 주문 생성 (기존 user + 기존 product)
-    public void addOrdersUser(Long id, UserProductListRequestDto requestDto) {
-        User user = userRepository.findById(id)
-                .orElseThrow(ResourceNotFoundException::new);
-        List<String> productNames = requestDto.getProductNames();
-
-        for (String prductName : productNames) {
-            Product product = productRepository.findByProductName(prductName)
-                    .orElseThrow(ResourceNotFoundException::new);
-        }
-
-        List<Product> products = productNames.stream().map(Product::new).map(productRepository::save).toList();
-        Orders orders = new Orders(products, user);
-
-        user.addOrders(orders);
-        ordersRepository.save(orders);
-    }
+//    public void addOrdersUser(Long id, UserProductListRequestDto requestDto) {
+//        User user = userRepository.findById(id)
+//                .orElseThrow(ResourceNotFoundException::new);
+//        List<String> productNames = requestDto.getProductNames();
+//
+//        for (String prductName : productNames) {
+//            Product product = productRepository.findByProductName(prductName)
+//                    .orElseThrow(ResourceNotFoundException::new);
+//        }
+//
+//        List<Product> products = productNames.stream().map(Product::new).map(productRepository::save).toList();
+//        Orders orders = new Orders(products, user);
+//
+//        user.addOrders(orders);
+//        ordersRepository.save(orders);
+//    }
 }

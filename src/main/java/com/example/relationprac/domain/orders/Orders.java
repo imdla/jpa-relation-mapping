@@ -26,7 +26,7 @@ public class Orders extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private List<Product> products = new ArrayList<>();
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -37,8 +37,8 @@ public class Orders extends BaseTimeEntity {
     private LocalDateTime createdAt;
 
     @Builder
-    public Orders(List<Product> products, User user) {
-        this.products = products;
+    public Orders(Product product, User user) {
+        this.product = product;
         this.user = user;
     }
 }

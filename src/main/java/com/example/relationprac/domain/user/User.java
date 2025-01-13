@@ -41,7 +41,7 @@ public class User extends BaseTimeEntity {
     private Team team;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Orders orders;
+    private List<Orders> orders = new ArrayList<>();
 
     @Builder
     public User(String username, String email, String nickname, int age) {
@@ -64,9 +64,5 @@ public class User extends BaseTimeEntity {
     public void setTeam(Team team) {
         this.team = team;
         team.getUsers().add(this);
-    }
-
-    public void addOrders(Orders orders) {
-        this.orders = orders;
     }
 }

@@ -23,8 +23,8 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String productName;
 
-    @OneToMany(mappedBy = "products", fetch = FetchType.LAZY)
-    private Orders orders;
+//    @OneToMany(mappedBy = "products", fetch = FetchType.LAZY)
+//    private List<Orders> orders = new ArrayList<>();
 
     @Builder
     public Product(String productName) {

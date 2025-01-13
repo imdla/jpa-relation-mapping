@@ -100,13 +100,13 @@ public class UserController {
     }
 
     // 주문 생성 (기존 user + 기존 product)
-    @PostMapping("/{id}/orders")
-    public void addOrdersUser(@PathVariable Long id, @RequestBody UserProductListRequestDto requestDto) {
-        userService.addOrdersUser(id, requestDto);
-        ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(ApiResponse.ok(
-                        "주문이 완료되었습니다."
-                ));
-    }
+//    @PostMapping("/{id}/orders")
+//    public void addOrdersUser(@PathVariable Long id, @RequestBody UserProductListRequestDto requestDto) {
+//        userService.addOrdersUser(id, requestDto);
+//        ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .body(ApiResponse.ok(
+//                        "주문이 완료되었습니다."
+//                ));
+//    }
 }
