@@ -65,4 +65,8 @@ public class User extends BaseTimeEntity {
         this.team = team;
         team.getUsers().add(this);
     }
+
+    public void addOrders(Orders orders) {
+        this.orders = orders;
+    }
 }

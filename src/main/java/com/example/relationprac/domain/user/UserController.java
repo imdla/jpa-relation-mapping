@@ -1,5 +1,7 @@
 package com.example.relationprac.domain.user;
 
+import com.example.relationprac.domain.product.dto.ProductRequestDto;
+import com.example.relationprac.domain.user.dto.UserProductListRequestDto;
 import com.example.relationprac.domain.user.dto.UserRequestDto;
 import com.example.relationprac.domain.user.dto.UserResponseDto;
 import com.example.relationprac.global.response.ApiResponse;
@@ -95,5 +97,16 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.ok(
                 userService.findByAgeGreaterThanInactive(age)
         ));
+    }
+
+    // 주문 생성 (기존 user + 기존 product)
+    @PostMapping("/{id}/orders")
+    public void addOrdersUser(@PathVariable Long id, @RequestBody UserProductListRequestDto requestDto) {
+        userService.addOrdersUser(id, requestDto);
+        ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ApiResponse.ok(
+                        "주문이 완료되었습니다."
+                ));
     }
 }

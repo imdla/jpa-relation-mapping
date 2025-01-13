@@ -1,7 +1,12 @@
 package com.example.relationprac.domain.user;
 
+import com.example.relationprac.domain.orders.Orders;
+import com.example.relationprac.domain.orders.OrdersRepository;
+import com.example.relationprac.domain.product.Product;
+import com.example.relationprac.domain.product.ProductRepository;
 import com.example.relationprac.domain.team.Team;
 import com.example.relationprac.domain.team.TeamRepository;
+import com.example.relationprac.domain.user.dto.UserProductListRequestDto;
 import com.example.relationprac.domain.user.dto.UserRequestDto;
 import com.example.relationprac.domain.user.dto.UserResponseDto;
 import com.example.relationprac.global.exception.ResourceNotFoundException;
@@ -10,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +24,8 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final TeamRepository teamRepository;
+    private final ProductRepository productRepository;
+    private final OrdersRepository ordersRepository;
 
     // CREATE
     @Transactional
@@ -123,5 +131,23 @@ public class UserService {
         return userRepository.findByAgeGreaterThanInactive(age).stream()
                 .map(UserResponseDto::from)
                 .toList();
+    }
+
+    // 주문 생성 (기존 user + 기존 product)
+    public void addOrdersUser(Long id, UserProductListRequestDto requestDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        List<String> productNames = requestDto.getProductNames();
+
+        for (String prductName : productNames) {
+            Product product = productRepository.findByProductName(prductName)
+                    .orElseThrow(ResourceNotFoundException::new);
+        }
+
+        List<Product> products = productNames.stream().map(Product::new).map(productRepository::save).toList();
+        Orders orders = new Orders(products, user);
+
+        user.addOrders(orders);
+        ordersRepository.save(orders);
     }
 }
