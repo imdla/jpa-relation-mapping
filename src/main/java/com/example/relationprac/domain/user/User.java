@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,11 +40,11 @@ public class User extends BaseTimeEntity {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Orders orders;
 
     @Builder
-    public User(String username, String email, String nickname, int age, Team team) {
+    public User(String username, String email, String nickname, int age) {
         this.username = username;
         this.email = email;
         this.nickname = nickname;

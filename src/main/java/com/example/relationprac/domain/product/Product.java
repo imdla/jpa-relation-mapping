@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,7 +23,7 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String productName;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Orders orders;
 
     @Builder
