@@ -1,6 +1,5 @@
 package com.example.relationprac.domain.user.dto;
 
-import com.example.relationprac.domain.product.Product;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class UserProductListRequestDto {
+public class UserOrdersRequestDto {
 
     @NotBlank(message = "제품명은 필수입력입니다.")
     private List<

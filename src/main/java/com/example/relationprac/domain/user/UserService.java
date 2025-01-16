@@ -6,7 +6,8 @@ import com.example.relationprac.domain.product.Product;
 import com.example.relationprac.domain.product.ProductRepository;
 import com.example.relationprac.domain.team.Team;
 import com.example.relationprac.domain.team.TeamRepository;
-import com.example.relationprac.domain.user.dto.UserProductListRequestDto;
+import com.example.relationprac.domain.user.dto.UserOrdersRequestDto;
+import com.example.relationprac.domain.user.dto.UserOrdersResponseDto;
 import com.example.relationprac.domain.user.dto.UserRequestDto;
 import com.example.relationprac.domain.user.dto.UserResponseDto;
 import com.example.relationprac.global.exception.ResourceNotFoundException;
@@ -15,7 +16,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -134,20 +134,20 @@ public class UserService {
     }
 
     // 주문 생성 (기존 user + 기존 product)
-//    public void addOrdersUser(Long id, UserProductListRequestDto requestDto) {
-//        User user = userRepository.findById(id)
-//                .orElseThrow(ResourceNotFoundException::new);
-//        List<String> productNames = requestDto.getProductNames();
-//
-//        for (String prductName : productNames) {
-//            Product product = productRepository.findByProductName(prductName)
-//                    .orElseThrow(ResourceNotFoundException::new);
-//        }
-//
-//        List<Product> products = productNames.stream().map(Product::new).map(productRepository::save).toList();
-//        Orders orders = new Orders(products, user);
-//
-//        user.addOrders(orders);
-//        ordersRepository.save(orders);
-//    }
+    @Transactional
+    public UserOrdersResponseDto addOrdersUser(Long id, UserOrdersRequestDto requestDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        List<String> productNames = requestDto.getProductNames();
+
+        for (String prductName : productNames) {
+            Product product = productRepository.findByProductName(prductName)
+                    .orElseThrow(ResourceNotFoundException::new);
+
+            Orders orders = new Orders(product, user);
+            user.getOrders().add(orders);
+        }
+
+        return UserOrdersResponseDto.from(user);
+    }
 }
