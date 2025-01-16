@@ -31,7 +31,7 @@ public class UserController {
 
     // READ ALL
     @GetMapping
-    public ResponseEntity<ApiResponse<List<UserResponseDto>>> findUsers() {
+    public ResponseEntity<ApiResponse<List<UserOrdersResponseDto>>> findUsers() {
         return ResponseEntity.ok(ApiResponse.ok(
                 userService.findUsers()
         ));
@@ -39,7 +39,7 @@ public class UserController {
 
     // READ ONE
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<UserResponseDto>> findUserById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<UserOrdersResponseDto>> findUserById(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok(
                 userService.findUserById(id)
         ));

@@ -12,6 +12,9 @@ import java.util.List;
 public class UserOrdersResponseDto {
     private final Long id;
     private final String username;
+    private final String nickname;
+    private final int age;
+    private final String team;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private final List<String> orders;
@@ -20,6 +23,7 @@ public class UserOrdersResponseDto {
         return UserOrdersResponseDto.builder()
                 .id(entity.getId())
                 .username(entity.getUsername())
+                .team(entity.getTeam().getTeamName())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .orders(entity.getOrders().stream().map(

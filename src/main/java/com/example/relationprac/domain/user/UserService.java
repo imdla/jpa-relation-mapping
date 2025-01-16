@@ -53,17 +53,17 @@ public class UserService {
     }
 
     // READ ALL
-    public List<UserResponseDto> findUsers() {
+    public List<UserOrdersResponseDto> findUsers() {
         return userRepository.findAll().stream()
-                .map(UserResponseDto::from)
+                .map(UserOrdersResponseDto::from)
                 .toList();
     }
 
     // READ ONE
-    public UserResponseDto findUserById(Long id) {
+    public UserOrdersResponseDto findUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
-        return UserResponseDto.from(user);
+        return UserOrdersResponseDto.from(user);
     }
 
     // UPDATE

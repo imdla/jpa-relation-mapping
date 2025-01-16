@@ -40,7 +40,7 @@ public class User extends BaseTimeEntity {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Orders> orders = new ArrayList<>();
 
     @Builder
