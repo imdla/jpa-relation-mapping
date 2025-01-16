@@ -1,6 +1,5 @@
 package com.example.relationprac.domain.user.dto;
 
-import com.example.relationprac.domain.team.Team;
 import com.example.relationprac.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
